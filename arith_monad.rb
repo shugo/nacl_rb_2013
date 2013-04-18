@@ -1,7 +1,7 @@
-require_relative "packrat_parser"
+require "haensel"
 
 class ArithMonad
-  PARSER = PackratParser.new(:additive) {
+  PARSER = Haensel::Grammar.new(:additive) {
     define :additive,
       multitive.bind { |x|
         char(?+).bind {
@@ -47,7 +47,7 @@ class ArithMonad
         if /\d/.match(c)
           ret c
         else
-          no_parse
+          fail
         end
       }
   }
